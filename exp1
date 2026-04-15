@@ -1,0 +1,18 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+data = {
+    'Product': ['A', 'B', 'A', 'C', 'B', 'C', 'A'],
+    'Quantity': [10, 5, 8, 6, 7, 3, 4],
+    'Price': [100, None, 120, 150, None, 130, None]
+}
+df = pd.DataFrame(data)
+df['Price'] = df.groupby('Product')['Price'].transform(lambda x: x.fillna(x.mean()))
+df['Total_Sales'] = df['Quantity'] * df['Price']
+total_sales = df.groupby('Product')['Total_Sales'].sum()
+top_product = total_sales.idxmax()
+print("Product with highest total sales:", top_product)
+total_sales.plot(kind='bar')
+plt.xlabel("Product")
+plt.ylabel("Total Sales")
+plt.title("Total Sales by Product")
+plt.show()
