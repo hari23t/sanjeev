@@ -1,0 +1,19 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+data = {
+    'Date': ['2024-02-01', '2024-02-02', '2024-02-03', '2024-02-04', '2024-02-05'],
+    'Vehicle_Count': [200, None, 350, 300, None]
+}
+df = pd.DataFrame(data)
+df['Vehicle_Count'].fillna(0, inplace=True)
+total_traffic = df['Vehicle_Count'].sum()
+average_traffic = df['Vehicle_Count'].mean()
+print("Total Traffic:", total_traffic)
+print("Average Traffic:", average_traffic)
+max_day = df.loc[df['Vehicle_Count'].idxmax()]
+print("Highest traffic date:", max_day['Date'].date())
+plt.plot(df['Date'], df['Vehicle_Count'])
+plt.xlabel("Date")
+plt.ylabel("Vehicle Count")
+plt.title("Daily Traffic Volume Trend")
+plt.show()
