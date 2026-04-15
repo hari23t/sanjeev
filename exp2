@@ -1,16 +1,26 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+
 data = {
     'Date': ['2024-01-01', '2024-01-02', '2024-01-03', '2024-01-04', '2024-01-05'],
     'Min_Temp': [20, 22, None, 19, 23],
     'Max_Temp': [30, None, 35, 28, 36]
 }
+
 df = pd.DataFrame(data)
+
+# ✅ FIX: Convert to datetime
+df['Date'] = pd.to_datetime(df['Date'])
+
 df['Min_Temp'].fillna(df['Min_Temp'].mean(), inplace=True)
 df['Max_Temp'].fillna(df['Max_Temp'].mean(), inplace=True)
+
 df['Average_Temp'] = (df['Min_Temp'] + df['Max_Temp']) / 2
+
 hottest_day = df.loc[df['Average_Temp'].idxmax()]
+
 print("Date with highest average temperature:", hottest_day['Date'].date())
+
 plt.plot(df['Date'], df['Average_Temp'])
 plt.xlabel("Date")
 plt.ylabel("Average Temperature")
