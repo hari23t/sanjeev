@@ -1,13 +1,24 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+
+# 🔹 Dataset
 data = {
     'Student_ID': [101, 102, 103, 104, 105, 106],
     'Completion_Status': ['Yes', 'No', None, 'Yes', None, 'No']
 }
+
 df = pd.DataFrame(data)
-df['Completion_Status'].fillna("No", inplace=True)
+
+# 🔹 Fix missing values (correct way)
+df['Completion_Status'] = df['Completion_Status'].fillna("No")
+
+# 🔹 Count completion status
 status_count = df['Completion_Status'].value_counts()
+
 print("Completion Count:\n", status_count)
+
+# 🔹 Plot pie chart
 plt.pie(status_count, labels=status_count.index, autopct='%1.1f%%')
 plt.title("Course Completion Status")
+
 plt.show()
